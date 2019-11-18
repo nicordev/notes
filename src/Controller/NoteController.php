@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Note;
+use App\Form\NoteType;
 use App\Repository\NoteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class NoteController extends AbstractController
@@ -40,9 +42,23 @@ class NoteController extends AbstractController
      *     name="notes_create"
      * )
      */
-    public function create(EntityManagerInterface $manager)
+    public function create(Request $request, EntityManagerInterface $manager)
     {
-        // TODO
+        $note = new Note();
+        $form = $this->createForm(NoteType::class, $note);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($note);
+            $manager->flush();
+            $this->addFlash("success", "A note has been created.");
+
+            return $this->redirectToRoute("notes");
+        }
+
+        return $this->render("note/create.html.twig", [
+            "noteForm" => $form->createView()
+        ]);
     }
 
     /**

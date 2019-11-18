@@ -3,6 +3,11 @@
 {% block title %}Notes{% endblock %}
 
 {% block body %}
+<header>
+    <h1>Notes</h1>
+    <p><a href="{{ path("notes_create") }}">Add a note</a></p>
+</header>
+
 <div class="content">
     <ul>
         {% for note in notes %}
