@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Notes{% endblock %}
+
+{% block body %}
+<div class="content">
+    <ul>
+        {% for note in notes %}
+            <li>{{ note.title }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
