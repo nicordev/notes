@@ -6,7 +6,7 @@
 <div class="content">
     <ul>
         {% for note in notes %}
-            <li>{{ note.title }}</li>
+            <li><a href="{{ path("notes_show", {id: note.id}) }}">{{ note.title }}</a></li>
         {% endfor %}
     </ul>
 </div>
