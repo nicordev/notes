@@ -5,6 +5,11 @@
 {% block body %}
 <header>
     <h1>{{ note.title }}</h1>
+
+    <ul>
+        <li><a href="{{ path("notes_edit", {id: note.id}) }}">Edit</a></li>
+        <li><a href="{{ path("notes_delete", {id: note.id}) }}">Delete</a></li>
+    </ul>
 </header>
 <div class="content">
     {{ note.content }}
