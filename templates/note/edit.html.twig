@@ -2,13 +2,14 @@
 
 {% block title %}Notes{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("/css/note_form.css") }}">
+{% endblock %}
+
 {% block body %}
-<header>
-    <h1>Edit a note</h1>
-</header>
 <div class="content">
-    {{ form_start(noteForm) }}
-    <button type="submit">Update</button>
-    {{ form_end(noteForm) }}
+    <h1>Edit a note</h1>
+    {% include 'note/component/note_form.html.twig' %}
+    <a href="{{ path("notes") }}">Cancel</a>
 </div>
 {% endblock %}

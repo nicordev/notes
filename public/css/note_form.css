@@ -1,0 +1,16 @@
+
+.note-form-component {
+    margin: 1rem 0;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.note-form-input {
+    border: none;
+    border-bottom: 2px solid darkslateblue;
+}
+
+.note-form-textarea {
+    border: none;
+    border-bottom: 2px solid darkslateblue;
+}
