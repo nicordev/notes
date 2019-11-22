@@ -45,8 +45,7 @@ class NoteController extends AbstractController
     public function create(Request $request, EntityManagerInterface $manager)
     {
         $note = new Note();
-        $form = $this->createForm(NoteType::class, $note);
-        $form->handleRequest($request);
+        $form = $this->handleNoteForm($note, $request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($note);
@@ -68,9 +67,20 @@ class NoteController extends AbstractController
      *     requirements={"id": "\d+"}
      * )
      */
-    public function edit(Note $note, EntityManagerInterface $manager)
+    public function edit(Note $note, Request $request, EntityManagerInterface $manager)
     {
-        // TODO
+        $form = $this->handleNoteForm($note, $request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->flush();
+            $this->addFlash("success", "A note has been updated.");
+
+            return $this->redirectToRoute("notes");
+        }
+
+        return $this->render("note/edit.html.twig", [
+            "noteForm" => $form->createView()
+        ]);
     }
 
     /**
@@ -88,5 +98,13 @@ class NoteController extends AbstractController
         $this->addFlash("notice", "A note has been deleted.");
 
         return $this->redirectToRoute("notes");
+    }
+
+    private function handleNoteForm(Note $note, Request $request)
+    {
+        $form = $this->createForm(NoteType::class, $note);
+        $form->handleRequest($request);
+
+        return $form;
     }
 }

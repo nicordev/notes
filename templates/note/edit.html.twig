@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Notes{% endblock %}
+
+{% block body %}
+<header>
+    <h1>Edit a note</h1>
+</header>
+<div class="content">
+    {{ form_start(noteForm) }}
+    <button type="submit">Update</button>
+    {{ form_end(noteForm) }}
+</div>
+{% endblock %}
