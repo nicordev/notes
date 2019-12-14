@@ -15,11 +15,21 @@ class NoteController extends AbstractController
     /**
      * @Route("/notes", name="notes")
      */
-    public function index(NoteRepository $noteRepository)
+    public function index(NoteRepository $noteRepository, Request $request, EntityManagerInterface $manager)
     {
+        $note = new Note();
+        $noteForm = $this->handleNoteForm($note, $request);
+
+        if ($noteForm->isSubmitted() && $noteForm->isValid()) {
+            $manager->persist($note);
+            $manager->flush();
+            $this->addFlash("success", "A note has been created.");
+        }
+
         $notes = $noteRepository->findAll();
 
         return $this->render('note/index.html.twig', [
+            'noteForm' => $noteForm->createView(),
             'notes' => $notes,
         ]);
     }
@@ -34,30 +44,6 @@ class NoteController extends AbstractController
     public function show(Note $note)
     {
         return $this->render("note/show.html.twig", ["note" => $note]);
-    }
-
-    /**
-     * @Route(
-     *     "/notes/create",
-     *     name="notes_create"
-     * )
-     */
-    public function create(Request $request, EntityManagerInterface $manager)
-    {
-        $note = new Note();
-        $form = $this->handleNoteForm($note, $request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $manager->persist($note);
-            $manager->flush();
-            $this->addFlash("success", "A note has been created.");
-
-            return $this->redirectToRoute("notes");
-        }
-
-        return $this->render("note/create.html.twig", [
-            "noteForm" => $form->createView()
-        ]);
     }
 
     /**
@@ -100,6 +86,15 @@ class NoteController extends AbstractController
         return $this->redirectToRoute("notes");
     }
 
+    /**
+     * Create a form for a note.
+     *
+     * Also handle the Request object.
+     *
+     * @param Note $note
+     * @param Request $request
+     * @return \Symfony\Component\Form\FormInterface
+     */
     private function handleNoteForm(Note $note, Request $request)
     {
         $form = $this->createForm(NoteType::class, $note);

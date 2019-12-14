@@ -2,14 +2,32 @@
 
 {% block title %}Notes{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("/css/note_form.css") }}">
+    <link rel="stylesheet" href="{{ asset("/css/note_list.css") }}">
+{% endblock %}
+
 {% block body %}
-<div class="content">
-    <h1>Notes</h1>
-    <p><a href="{{ path("notes_create") }}">Add a note</a></p>
-    <ul>
-        {% for note in notes %}
-            <li><a href="{{ path("notes_show", {id: note.id}) }}">{{ note.title }}</a></li>
-        {% endfor %}
-    </ul>
-</div>
+    <header>
+        <h1>Notes</h1>
+    </header>
+
+    <div class="content">
+        {% include 'note/component/note_form.html.twig' %}
+
+        <section class="note-list">
+            {% for note in notes %}
+                <article class="note-list-element">
+                    <h2 class="note-list-element-title">{{ note.title }}<span class="note-list-element-commands"><a class="btn btn-warning" href="{{ path('notes_edit', {'id': note.id}) }}">Edit</a><a class="btn btn-danger" href="{{ path('notes_delete', {'id': note.id}) }}">Delete</a></span></h2>
+                    <div class="note-list-element-content">{{ note.content }}</div>
+                </article>
+            {% endfor %}
+        </section>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('/js/MarkdownParser/marked.js') }}"></script>
+    <script src="{{ asset('/js/MarkdownParser/MarkdownParser.js') }}"></script>
+    <script src="{{ asset('/js/notes_index.js') }}"></script>
 {% endblock %}
