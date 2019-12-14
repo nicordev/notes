@@ -1,0 +1,34 @@
+.note-list-element
+{
+    margin-top: 30px;
+}
+
+.note-list-element-title
+{
+    margin: 10px;
+    font-size: 1.2rem;
+}
+
+.note-list-element-content
+{
+    overflow: auto;
+    max-height: 500px;
+    color: dimgrey;
+}
+
+.note-list-element-content *
+{
+    font-size: 1rem;
+}
+
+.note-list-element-commands
+{
+    padding: 0 0.5rem;
+    display: none;
+}
+
+.note-list-element-title:hover .note-list-element-commands
+{
+    padding: 0 0.5rem;
+    display: inline;
+}
