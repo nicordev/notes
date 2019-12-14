@@ -1,0 +1,4 @@
+App\Entity\Note:
+    note_{1..10}:
+        title: 'Do something for <name()>'
+        content: '<sentences(3, false)>'

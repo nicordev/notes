@@ -3,10 +3,22 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset("/css/style.css") }}">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        {% block flashMessages %}
+            <div class="flash-messages">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="flash-message flash-{{ label }} alert alert-primary">{{ message }}</div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endblock %}
+
         {% block body %}{% endblock %}
+
         {% block javascripts %}{% endblock %}
     </body>
 </html>
