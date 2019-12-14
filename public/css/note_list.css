@@ -27,7 +27,7 @@
     display: none;
 }
 
-.note-list-element-title:hover .note-list-element-commands
+.note-list-element-title:hover .note-list-element-commands, .note-list-element-title:focus .note-list-element-commands
 {
     padding: 0 0.5rem;
     display: inline;
