@@ -16,6 +16,7 @@ A website to manage notes and to show how I work.
 - Create an RESTful API
 - Add authentication through JWT for the API
 - Create different front applications consuming the API using different technologies
+- Implement functional and unit tests
 
 ## Tools used
 
@@ -30,6 +31,8 @@ A website to manage notes and to show how I work.
 
 ## Tools planned to be used in incoming features
 
+- PhpUnit
+- Behat
 - Docker
 - ApiPlatform
 - Vue.js
