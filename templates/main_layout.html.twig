@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% block navigation %}
+        {% include 'navigation/navigation.html.twig' %}
+    {% endblock %}
+
+    <header>
+        {% block header %}{% endblock %}
+    </header>
+
+    <div class="content">
+        {% block flashMessages %}
+            <div class="flash-messages">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="flash-message flash-{{ label }} alert alert-primary">{{ message }}</div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endblock %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        {% block footer %}{% endblock %}
+    </footer>
+{% endblock %}

@@ -1,13 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'main_layout.html.twig' %}
 
 {% block title %}Notes{% endblock %}
 
-{% block body %}
-    <header>
-        <h1>Notes</h1>
-    </header>
+{% block header %}
+    <h1>Notes</h1>
+{% endblock %}
 
-    <div class="content">
-        <a href="{{ path("notes") }}">List notes</a>
-    </div>
+{% block content %}
+    <a href="{{ path("notes") }}">List notes</a>
 {% endblock %}

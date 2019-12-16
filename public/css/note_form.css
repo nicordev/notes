@@ -9,12 +9,12 @@
 .note-form-input
 {
     border: none;
-    border-bottom: 2px solid darkslateblue;
+    border-bottom: 2px solid dimgrey;
 }
 
 .note-form-textarea
 {
     border: none;
-    border-bottom: 2px solid darkslateblue;
+    border-bottom: 2px solid dimgrey;
     min-height: 200px;
 }

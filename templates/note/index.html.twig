@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'main_layout.html.twig' %}
 
 {% block title %}Notes{% endblock %}
 
@@ -7,23 +7,24 @@
     <link rel="stylesheet" href="{{ asset("/css/note_list.css") }}">
 {% endblock %}
 
-{% block body %}
-    <header>
-        <h1>Notes</h1>
-    </header>
+{% block header %}
+    <h1>Notes</h1>
+{% endblock %}
 
-    <div class="content">
-        {% include 'note/component/note_form.html.twig' %}
+{% block content %}
+    {% include 'note/component/note_form.html.twig' %}
 
-        <section class="note-list">
-            {% for note in notes %}
-                <article class="note-list-element">
-                    <h2 class="note-list-element-title">{{ note.title }}<span class="note-list-element-commands"><a class="btn btn-warning" href="{{ path('notes_edit', {'id': note.id}) }}">Edit</a><a class="btn btn-danger" href="{{ path('notes_delete', {'id': note.id}) }}">Delete</a></span></h2>
-                    <div class="note-list-element-content">{{ note.content }}</div>
-                </article>
-            {% endfor %}
-        </section>
-    </div>
+    <section class="note-list">
+        {% for note in notes %}
+            <article class="note-list-element">
+                <h2 class="note-list-element-title">{{ note.title }}<span class="note-list-element-commands"><a class="btn btn-warning" href="{{ path('notes_edit', {'id': note.id}) }}">Edit</a><a class="btn btn-danger" href="{{ path('notes_delete', {'id': note.id}) }}">Delete</a></span></h2>
+                {% if note.author %}
+                    <div class="note-list-element-metadata">{{ note.author.username }}</div>
+                {% endif %}
+                <div class="note-list-element-content">{{ note.content }}</div>
+            </article>
+        {% endfor %}
+    </section>
 {% endblock %}
 
 {% block javascripts %}
