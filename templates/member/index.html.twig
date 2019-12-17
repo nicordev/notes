@@ -1,0 +1,19 @@
+{% extends 'main_layout.html.twig' %}
+
+{% block title %}Members{% endblock %}
+
+{% block header %}
+    <h1>Members</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="member-list">
+        {% if members %}
+            {% for member in members %}
+                <div>
+                    {{ member.username }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

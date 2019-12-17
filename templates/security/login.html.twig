@@ -1,8 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'main_layout.html.twig' %}
 
 {% block title %}Log in!{% endblock %}
 
-{% block body %}
+{% block header %}Log in!{% endblock %}
+
+{% block content %}
     <div class="content">
         <form method="post">
             {% if error %}
