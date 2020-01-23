@@ -17,6 +17,8 @@ class NoteController extends AbstractController
      */
     public function index(NoteRepository $noteRepository, Request $request, EntityManagerInterface $manager)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER', $this->getUser());
+
         $note = new Note();
         $noteForm = $this->handleNoteForm($note, $request);
 
@@ -43,6 +45,8 @@ class NoteController extends AbstractController
      */
     public function show(Note $note)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER', $this->getUser());
+
         return $this->render("note/show.html.twig", ["note" => $note]);
     }
 
@@ -55,6 +59,8 @@ class NoteController extends AbstractController
      */
     public function edit(Note $note, Request $request, EntityManagerInterface $manager)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER', $this->getUser());
+
         $form = $this->handleNoteForm($note, $request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -78,6 +84,8 @@ class NoteController extends AbstractController
      */
     public function delete(Note $note, EntityManagerInterface $manager)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER', $this->getUser());
+
         $manager->remove($note);
         $manager->flush();
 
