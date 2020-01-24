@@ -28,7 +28,7 @@ class NoteController extends AbstractController
             $this->addFlash("success", "A note has been created.");
         }
 
-        $notes = $noteRepository->findAll();
+        $notes = $noteRepository->findBy([], ['id' => 'DESC']);
 
         return $this->render('note/index.html.twig', [
             'noteForm' => $noteForm->createView(),
