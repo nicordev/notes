@@ -2,12 +2,17 @@
 
 {% block title %}Registration{% endblock %}
 
+{% form_theme registrationForm 'bootstrap_4_layout.html.twig' %}
+
 {% block header %}
     <h1>Registration</h1>
 {% endblock %}
 
 {% block content %}
     {{ form_start(registrationForm) }}
-    <button type="submit">Register</button>
+    {{ form_row(registrationForm.name) }}
+    {{ form_row(registrationForm.email) }}
+    {{ form_row(registrationForm.password) }}
+    <button class="btn btn-success" type="submit">Register</button>
     {{ form_end(registrationForm) }}
 {% endblock %}
