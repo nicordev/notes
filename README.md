@@ -27,7 +27,6 @@ A website to manage notes and to show how I work.
 - Git
 - MariaDB / MySQL
 - PhpStorm
-- [Manjaro](https://manjaro.org/)
 
 ## Tools planned to be used in incoming features
 

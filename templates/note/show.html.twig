@@ -2,13 +2,14 @@
 
 {% block title %}Notes{% endblock %}
 
-{% block body %}
-<div class="content">
+{% block header %}
     <h1>{{ note.title }}</h1>
+{% endblock %}
+
+{% block content %}
     <ul>
-        <li><a href="{{ path("notes_edit", {id: note.id}) }}">Edit</a></li>
-        <li><a href="{{ path("notes_delete", {id: note.id}) }}">Delete</a></li>
+        <li><a class="btn btn-warning" href="{{ path("notes_edit", {id: note.id}) }}">Edit</a></li>
+        <li><a class="btn btn-danger" href="{{ path("notes_delete", {id: note.id}) }}">Delete</a></li>
     </ul>
     {{ note.content }}
-</div>
 {% endblock %}

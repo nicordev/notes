@@ -1,0 +1,9 @@
+
+<nav class="navbar">
+    {% if app.user %}
+        <span>{{ app.user.email }}</span>
+        <a class="btn btn-warning" href="/logout">Logout</a>
+    {% else %}
+        <a class="btn btn-secondary" href="{{ path('app_login') }}">Login</a>
+    {% endif %}
+</nav>

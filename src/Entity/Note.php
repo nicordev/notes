@@ -26,6 +26,11 @@ class Note
      */
     private $content;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Member", inversedBy="notes")
+     */
+    private $member;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +56,18 @@ class Note
     public function setContent(?string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getMember(): ?Member
+    {
+        return $this->member;
+    }
+
+    public function setMember(?Member $member): self
+    {
+        $this->member = $member;
 
         return $this;
     }

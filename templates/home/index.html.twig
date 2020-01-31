@@ -2,12 +2,8 @@
 
 {% block title %}Notes{% endblock %}
 
-{% block body %}
-    <header>
-        <h1>Notes</h1>
-    </header>
-
-    <div class="content">
-        <a href="{{ path("notes") }}">List notes</a>
+{% block content %}
+    <div class="summary">
+        <a class="btn btn-primary"href="{{ path("notes") }}">List notes</a>
     </div>
 {% endblock %}

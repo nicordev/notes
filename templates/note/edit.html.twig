@@ -6,10 +6,11 @@
     <link rel="stylesheet" href="{{ asset("/css/note_form.css") }}">
 {% endblock %}
 
-{% block body %}
-<div class="content">
+{% block header %}
     <h1>Edit a note</h1>
+{% endblock %}
+
+{% block content %}
     {% include 'note/component/note_form.html.twig' %}
     <a href="{{ path("notes") }}">Cancel</a>
-</div>
 {% endblock %}
