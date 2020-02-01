@@ -9,6 +9,7 @@ use App\Form\MemberRegistrationType;
 use App\Repository\MemberRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class MemberController extends AbstractController
 {
@@ -27,7 +28,7 @@ class MemberController extends AbstractController
     /**
      * @Route("/member/register", name="member_register")
      */
-    public function register(Request $request, EntityManagerInterface $manager)
+    public function register(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         if ($this->getUser()) {
             $this->addFlash('notice', 'You are already registered.');
@@ -40,6 +41,7 @@ class MemberController extends AbstractController
         $registrationForm->handleRequest($request);
 
         if ($registrationForm->isSubmitted() && $registrationForm->isValid()) {
+            $member->setPassword($encoder->encodePassword($member, $member->getPassword()));
             $manager->persist($member);
             $manager->flush();
             $this->addFlash('notice', 'A member has been added.');
