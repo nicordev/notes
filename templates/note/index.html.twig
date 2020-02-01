@@ -14,6 +14,7 @@
         {% for note in notes %}
             <article class="note-list-element">
                 <h2 class="note-list-element-title">{{ note.title }}<span class="note-list-element-commands"><a class="btn btn-warning" href="{{ path('notes_edit', {'id': note.id}) }}">Edit</a><a class="btn btn-danger" href="{{ path('notes_delete', {'id': note.id}) }}">Delete</a></span></h2>
+                <div class="note-list-element-metadata">{{ note.author.name ?? "Anonymous" }}</div>
                 <div class="note-list-element-content">{{ note.content }}</div>
             </article>
         {% endfor %}

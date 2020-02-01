@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Member;
 use App\Entity\Note;
 use App\Form\NoteType;
 use App\Repository\NoteRepository;
@@ -17,23 +18,38 @@ class NoteController extends AbstractController
      */
     public function index(NoteRepository $noteRepository, Request $request, EntityManagerInterface $manager)
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', $this->getUser());
+        $user = $this->getUser();
+        $this->denyAccessUnlessGranted('ROLE_USER', $user);
 
-        $note = new Note();
-        $noteForm = $this->handleNoteForm($note, $request);
-
-        if ($noteForm->isSubmitted() && $noteForm->isValid()) {
-            $manager->persist($note);
-            $manager->flush();
-            $this->addFlash("success", "A note has been created.");
-        }
-
-        $notes = $noteRepository->findBy([], ['id' => 'DESC']);
+        $noteForm = $this->handleNoteCreation($request, $manager, $user);
+        $notes = $noteRepository->findBy(['author' => $user], ['id' => 'DESC']);
 
         return $this->render('note/index.html.twig', [
             'noteForm' => $noteForm->createView(),
             'notes' => $notes,
         ]);
+    }
+
+    /**
+     * Make a form to create a new note and saves a new note in the database if needed.
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    private function handleNoteCreation(Request $request, EntityManagerInterface $manager, Member $author)
+    {
+        $note = new Note();
+        $noteForm = $this->handleNoteForm($note, $request);
+
+        if ($noteForm->isSubmitted() && $noteForm->isValid()) {
+            $note->setAuthor($author);
+            $manager->persist($note);
+            $manager->flush();
+            $this->addFlash("success", "A note has been created.");
+        }
+
+        return $noteForm;
     }
 
     /**

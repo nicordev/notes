@@ -21,6 +21,12 @@
     font-size: 1rem;
 }
 
+.note-list-element-metadata
+{
+    color: darkgrey;
+    font-size: 0.75rem;
+}
+
 .note-list-element-commands
 {
     padding: 0 0.5rem;
