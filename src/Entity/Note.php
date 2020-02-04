@@ -29,7 +29,7 @@ class Note
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Member", inversedBy="notes")
      */
-    private $member;
+    private $author;
 
     public function getId(): ?int
     {
@@ -60,14 +60,14 @@ class Note
         return $this;
     }
 
-    public function getMember(): ?Member
+    public function getAuthor(): ?Member
     {
-        return $this->member;
+        return $this->author;
     }
 
-    public function setMember(?Member $member): self
+    public function setAuthor(?Member $author): self
     {
-        $this->member = $member;
+        $this->author = $author;
 
         return $this;
     }
