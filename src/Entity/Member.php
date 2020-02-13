@@ -96,6 +96,15 @@ class Member implements UserInterface
         return $this;
     }
 
+    public function addRole(string $role): self
+    {
+        if (!array_search($role, $this->roles)) {
+            $this->roles[] = $role;
+        }
+
+        return $this;
+    }
+
     /**
      * @see UserInterface
      */
@@ -163,8 +172,8 @@ class Member implements UserInterface
         if ($this->notes->contains($note)) {
             $this->notes->removeElement($note);
             // set the owning side to null (unless already changed)
-            if ($note->getMember() === $this) {
-                $note->setMember(null);
+            if ($note->getAuthor() === $this) {
+                $note->setAuthor(null);
             }
         }
 
