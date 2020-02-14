@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class MemberController extends AbstractController
 {
     /**
-     * @Route("/member", name="member")
+     * @Route("/members", name="member_index")
      */
     public function index(MemberRepository $memberRepository)
     {
@@ -27,7 +27,7 @@ class MemberController extends AbstractController
     }
 
     /**
-     * @Route("/member/register", name="member_register")
+     * @Route("/members/register", name="member_register")
      */
     public function register(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {

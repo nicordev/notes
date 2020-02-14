@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class NoteController extends AbstractController
 {
     /**
-     * @Route("/notes", name="notes")
+     * @Route("/notes", name="note_index")
      */
     public function index(NoteRepository $noteRepository, Request $request, EntityManagerInterface $manager)
     {
@@ -55,7 +55,7 @@ class NoteController extends AbstractController
     /**
      * @Route(
      *     "/notes/{id}",
-     *     name="notes_show",
+     *     name="note_show",
      *     requirements={"id": "\d+"}
      * )
      */
@@ -69,7 +69,7 @@ class NoteController extends AbstractController
     /**
      * @Route(
      *     "/notes/edit/{id}",
-     *     name="notes_edit",
+     *     name="note_edit",
      *     requirements={"id": "\d+"}
      * )
      */
@@ -83,7 +83,7 @@ class NoteController extends AbstractController
             $manager->flush();
             $this->addFlash("success", "A note has been updated.");
 
-            return $this->redirectToRoute("notes");
+            return $this->redirectToRoute("note_index");
         }
 
         return $this->render("note/edit.html.twig", [
@@ -94,7 +94,7 @@ class NoteController extends AbstractController
     /**
      * @Route(
      *     "/notes/delete/{id}",
-     *     name="notes_delete",
+     *     name="note_delete",
      *     requirements={"id": "\d+"}
      * )
      */
@@ -107,7 +107,7 @@ class NoteController extends AbstractController
 
         $this->addFlash("notice", "A note has been deleted.");
 
-        return $this->redirectToRoute("notes");
+        return $this->redirectToRoute("note_index");
     }
 
     /**
