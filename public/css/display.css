@@ -1,0 +1,9 @@
+.switch-display
+{
+    display: none;
+}
+
+.switch-display-trigger:hover .switch-display, .switch-display-trigger:focus .switch-display
+{
+    display: inline;
+}
