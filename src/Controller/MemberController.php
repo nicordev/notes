@@ -84,7 +84,7 @@ class MemberController extends AbstractController
     public function delete(Member $member, EntityManagerInterface $manager)
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
+        
         $manager->remove($member);
         $manager->flush();
         $this->addFlash('notice', 'A member has been deleted.');
