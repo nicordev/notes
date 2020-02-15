@@ -11,8 +11,8 @@
         <section class="admin-deck">
             {% for note in notes %}
                 <div class="admin-card">
-                    <h2 class="note-title">{{ note.title }}<span class="note-commands"><a class="btn btn-warning" href="{{ path('note_edit', {'id': note.id}) }}">Edit</a><a class="btn btn-danger" href="{{ path('note_delete', {'id': note.id}) }}">Delete</a></span></h2>
-                    <div class="note-author">{{ note.author.name ?? "Anonymous" }}</div>
+                    <h2 class="admin-item-title">{{ note.title }}<span class="admin-item-commands"><a class="btn btn-warning" href="{{ path('note_edit', {'id': note.id}) }}">Edit</a><a class="btn btn-danger" href="{{ path('note_delete', {'id': note.id}) }}">Delete</a></span></h2>
+                    <div class="admin-item-metadata">{{ note.author.name ?? "Anonymous" }}</div>
                 </div>
             {% endfor %}
         </section>
@@ -22,8 +22,8 @@
         <section class="admin-deck">
             {% for member in members %}
                 <div class="admin-card">
-                    <h2 class="member-name">{{ member.name }}</h2>
-                    <div class="member-email">{{ member.email }}</div>
+                    <h2 class="admin-item-title">{{ member.name }}<span class="admin-item-commands"><a class="btn btn-warning" href="{{ path('member_edit', {'id': member.id}) }}">Edit</a><a class="btn btn-danger" href="{{ path('member_delete', {'id': member.id}) }}">Delete</a></span></h2>
+                    <div class="admin-item-metadata">{{ member.email }}</div>
                 </div>
             {% endfor %}
         </section>
@@ -31,7 +31,4 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('/js/MarkdownPhttps://stackoverflow.com/questions/39974833/composer-the-requested-package-exists-as-but-these-are-rejected-by-your-constrarser/marked.js') }}"></script>
-    <script src="{{ asset('/js/MarkdownParser/MarkdownParser.js') }}"></script>
-    <script src="{{ asset('/js/note_index.js') }}"></script>
 {% endblock %}
