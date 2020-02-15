@@ -3,6 +3,7 @@
 {% block title %}Admin panel{% endblock %}
 
 {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("/css/admin_deck.css") }}">
 {% endblock %}
 
 {% block content %}
@@ -11,8 +12,8 @@
         <section class="admin-deck">
             {% for note in notes %}
                 <div class="admin-card">
-                    <h2 class="admin-item-title">{{ note.title }}<span class="admin-item-commands"><a class="btn btn-warning" href="{{ path('note_edit', {'id': note.id}) }}">Edit</a><a class="btn btn-danger" href="{{ path('note_delete', {'id': note.id}) }}">Delete</a></span></h2>
-                    <div class="admin-item-metadata">{{ note.author.name ?? "Anonymous" }}</div>
+                    <h2 class="admin-card-title">{{ note.title }}<span class="admin-card-commands"><a class="btn btn-warning btn-sm" href="{{ path('note_edit', {'id': note.id}) }}">Edit</a><a class="btn btn-danger btn-sm" href="{{ path('note_delete', {'id': note.id}) }}">Delete</a></span></h2>
+                    <div class="admin-card-metadata">{{ note.author.name ?? "Anonymous" }}</div>
                 </div>
             {% endfor %}
         </section>
@@ -22,8 +23,8 @@
         <section class="admin-deck">
             {% for member in members %}
                 <div class="admin-card">
-                    <h2 class="admin-item-title">{{ member.name }}<span class="admin-item-commands"><a class="btn btn-warning" href="{{ path('member_edit', {'id': member.id}) }}">Edit</a><a class="btn btn-danger" href="{{ path('member_delete', {'id': member.id}) }}">Delete</a></span></h2>
-                    <div class="admin-item-metadata">{{ member.email }}</div>
+                    <h2 class="admin-card-title">{{ member.name }}<span class="admin-card-commands"><a class="btn btn-warning btn-sm" href="{{ path('member_edit', {'id': member.id}) }}">Edit</a><a class="btn btn-danger btn-sm" href="{{ path('member_delete', {'id': member.id}) }}">Delete</a></span></h2>
+                    <div class="admin-card-metadata">{{ member.email }}</div>
                 </div>
             {% endfor %}
         </section>
