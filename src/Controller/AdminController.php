@@ -13,9 +13,9 @@ class AdminController extends AbstractController
      * @Route("/admin/index/{panel}", name="admin_index")
      */
     public function index(
-        string $panel,
         NoteRepository $noteRepository,
-        MemberRepository $memberRepository
+        MemberRepository $memberRepository,
+        string $panel
     ) {
         $notes = null;
         $members = null;
