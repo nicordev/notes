@@ -9,6 +9,11 @@
         {{ form_label(noteForm.content) }}
         {{ form_widget(noteForm.content, {'attr': {'class': 'note-form-textarea'}}) }}
     </div>
+    <div class="note-form-component">
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ form_row(noteForm.author) }}
+    {% endif %}
+    </div>
     <button class="btn btn-success" type="submit">Ok</button>
     {{ form_end(noteForm) }}
 </div>

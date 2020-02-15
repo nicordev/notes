@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Member;
 use App\Entity\Note;
+use App\Form\AdminNoteType;
 use App\Form\NoteType;
 use App\Repository\NoteRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -121,7 +122,12 @@ class NoteController extends AbstractController
      */
     private function handleNoteForm(Note $note, Request $request)
     {
-        $form = $this->createForm(NoteType::class, $note);
+        $form = $this->createForm(
+            $this->isGranted('ROLE_ADMIN') ? 
+                AdminNoteType::class :
+                NoteType::class, 
+            $note
+        );
         $form->handleRequest($request);
 
         return $form;
