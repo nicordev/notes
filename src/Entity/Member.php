@@ -41,7 +41,7 @@ class Member implements UserInterface
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="member")
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="author")
      */
     private $notes;
 
@@ -161,7 +161,7 @@ class Member implements UserInterface
     {
         if (!$this->notes->contains($note)) {
             $this->notes[] = $note;
-            $note->setMember($this);
+            $note->setAuthor($this);
         }
 
         return $this;
