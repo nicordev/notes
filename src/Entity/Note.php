@@ -28,6 +28,7 @@ class Note
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Member", inversedBy="notes")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $author;
 

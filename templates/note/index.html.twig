@@ -13,7 +13,7 @@
     <section class="note-list">
         {% for note in notes %}
             <article class="note-list-element">
-                <h2 class="note-list-element-title">{{ note.title }}<span class="note-list-element-commands"><a class="btn btn-warning" href="{{ path('notes_edit', {'id': note.id}) }}">Edit</a><a class="btn btn-danger" href="{{ path('notes_delete', {'id': note.id}) }}">Delete</a></span></h2>
+                <h2 class="note-list-element-title">{{ note.title }}<span class="note-list-element-commands"><a class="btn btn-warning" href="{{ path('note_edit', {'id': note.id}) }}">Edit</a><a class="btn btn-danger" href="{{ path('note_delete', {'id': note.id}) }}">Delete</a></span></h2>
                 <div class="note-list-element-metadata">{{ note.author.name ?? "Anonymous" }}</div>
                 <div class="note-list-element-content">{{ note.content }}</div>
             </article>
@@ -24,5 +24,5 @@
 {% block javascripts %}
     <script src="{{ asset('/js/MarkdownParser/marked.js') }}"></script>
     <script src="{{ asset('/js/MarkdownParser/MarkdownParser.js') }}"></script>
-    <script src="{{ asset('/js/notes_index.js') }}"></script>
+    <script src="{{ asset('/js/note_index.js') }}"></script>
 {% endblock %}

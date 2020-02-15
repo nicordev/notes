@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registration{% endblock %}
+
+{% form_theme memberForm 'bootstrap_4_layout.html.twig' %}
+
+{% block header %}
+    <h1>Edit member</h1>
+{% endblock %}
+
+{% block content %}
+    {{ form_start(memberForm) }}
+    {{ form_row(memberForm.name) }}
+    {{ form_row(memberForm.email) }}
+    <button class="btn btn-success" type="submit">Register</button>
+    {{ form_end(memberForm) }}
+{% endblock %}

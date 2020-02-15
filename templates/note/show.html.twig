@@ -8,8 +8,8 @@
 
 {% block content %}
     <ul>
-        <li><a class="btn btn-warning" href="{{ path("notes_edit", {id: note.id}) }}">Edit</a></li>
-        <li><a class="btn btn-danger" href="{{ path("notes_delete", {id: note.id}) }}">Delete</a></li>
+        <li><a class="btn btn-warning" href="{{ path("note_edit", {id: note.id}) }}">Edit</a></li>
+        <li><a class="btn btn-danger" href="{{ path("note_delete", {id: note.id}) }}">Delete</a></li>
     </ul>
     {{ note.content }}
 {% endblock %}

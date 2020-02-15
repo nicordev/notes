@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin panel{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("/css/admin_deck.css") }}">
+{% endblock %}
+
+{% block content %}
+
+    {% if notes is not empty %}
+        <section class="admin-deck">
+            {% for note in notes %}
+                <div class="admin-card">
+                    <h2 class="admin-card-title">{{ note.title }}<span class="admin-card-commands"><a class="btn btn-warning btn-sm" href="{{ path('note_edit', {'id': note.id}) }}">Edit</a><a class="btn btn-danger btn-sm" href="{{ path('note_delete', {'id': note.id}) }}">Delete</a></span></h2>
+                    <div class="admin-card-metadata">{{ note.author.name ?? "Anonymous" }}</div>
+                </div>
+            {% endfor %}
+        </section>
+    {% endif %}
+
+    {% if members is not empty %}
+        <section class="admin-deck">
+            {% for member in members %}
+                <div class="admin-card">
+                    <h2 class="admin-card-title">{{ member.name }}<span class="admin-card-commands"><a class="btn btn-warning btn-sm" href="{{ path('member_edit', {'id': member.id}) }}">Edit</a><a class="btn btn-danger btn-sm" href="{{ path('member_delete', {'id': member.id}) }}">Delete</a></span></h2>
+                    <div class="admin-card-metadata">{{ member.email }}</div>
+                </div>
+            {% endfor %}
+        </section>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}

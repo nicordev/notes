@@ -2,19 +2,21 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Member;
+use App\Form\MemberEditionType;
+use App\Helper\RoleHelper;
 use App\Form\MemberRegistrationType;
 use App\Repository\MemberRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class MemberController extends AbstractController
 {
     /**
-     * @Route("/member", name="member")
+     * @Route("/members", name="member_index")
      */
     public function index(MemberRepository $memberRepository)
     {
@@ -26,7 +28,7 @@ class MemberController extends AbstractController
     }
 
     /**
-     * @Route("/member/register", name="member_register")
+     * @Route("/members/register", name="member_register")
      */
     public function register(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
@@ -51,6 +53,42 @@ class MemberController extends AbstractController
 
         return $this->render('member/register.html.twig', [
             'registrationForm' => $registrationForm->createView()
-        ]);   
+        ]);
+    }
+
+    /**
+     * @Route("/members/edit/{id}", name="member_edit", requirements={"id": "\d+"})
+     */
+    public function edit(Member $member, Request $request, EntityManagerInterface $manager)
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $memberForm = $this->createForm(MemberEditionType::class, $member);
+        $memberForm->handleRequest($request);
+
+        if ($memberForm->isSubmitted() && $memberForm->isValid()) {
+            $manager->flush();
+            $this->addFlash('notice', 'A member has been modified.');
+
+            return $this->redirectToRoute('admin_index', ['panel' => 'member']);
+        }
+
+        return $this->render('member/edit.html.twig', [
+            'memberForm' => $memberForm->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/members/delete/{id}", name="member_delete", requirements={"id": "\d+"})
+     */
+    public function delete(Member $member, EntityManagerInterface $manager)
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        
+        $manager->remove($member);
+        $manager->flush();
+        $this->addFlash('notice', 'A member has been deleted.');
+
+        return $this->redirectToRoute('admin_index', ['panel' => 'member']);
     }
 }
