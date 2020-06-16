@@ -1,6 +1,12 @@
 
 <div class="note-form-wrapper">
     {{ form_start(noteForm) }}
+    {% if noteForm.author is defined %}
+        <div class="note-form-component">
+            {{ form_label(noteForm.author) }}
+            {{ form_widget(noteForm.author) }}
+        </div>
+    {% endif %}
     <div class="note-form-component">
         {{ form_label(noteForm.title) }}
         {{ form_widget(noteForm.title, {'attr': {'class': 'note-form-input'}}) }}
@@ -8,11 +14,6 @@
     <div class="note-form-component">
         {{ form_label(noteForm.content) }}
         {{ form_widget(noteForm.content, {'attr': {'class': 'note-form-textarea'}}) }}
-    </div>
-    <div class="note-form-component">
-    {% if is_granted('ROLE_ADMIN') %}
-        {{ form_row(noteForm.author) }}
-    {% endif %}
     </div>
     <button class="btn btn-success" type="submit">Ok</button>
     {{ form_end(noteForm) }}

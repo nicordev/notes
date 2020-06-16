@@ -32,28 +32,6 @@ class NoteController extends AbstractController
     }
 
     /**
-     * Make a form to create a new note and saves a new note in the database if needed.
-     *
-     * @param Request $request
-     * @param EntityManagerInterface $manager
-     * @return \Symfony\Component\Form\FormInterface
-     */
-    private function handleNoteCreation(Request $request, EntityManagerInterface $manager, Member $author)
-    {
-        $note = new Note();
-        $noteForm = $this->handleNoteForm($note, $request);
-
-        if ($noteForm->isSubmitted() && $noteForm->isValid()) {
-            $note->setAuthor($author);
-            $manager->persist($note);
-            $manager->flush();
-            $this->addFlash("success", "A note has been created.");
-        }
-
-        return $noteForm;
-    }
-
-    /**
      * @Route(
      *     "/notes/{id}",
      *     name="note_show",
@@ -78,7 +56,7 @@ class NoteController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_USER', $this->getUser());
 
-        $form = $this->handleNoteForm($note, $request);
+        $form = $this->handleNoteForm($note, $request, $this->isGranted('ROLE_ADMIN'));
 
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->flush();
@@ -112,6 +90,28 @@ class NoteController extends AbstractController
     }
 
     /**
+     * Make a form to create a new note and saves a new note in the database if needed.
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    private function handleNoteCreation(Request $request, EntityManagerInterface $manager, Member $author)
+    {
+        $note = new Note();
+        $noteForm = $this->handleNoteForm($note, $request, false);
+
+        if ($noteForm->isSubmitted() && $noteForm->isValid()) {
+            $note->setAuthor($author);
+            $manager->persist($note);
+            $manager->flush();
+            $this->addFlash("success", "A note has been created.");
+        }
+
+        return $noteForm;
+    }
+
+    /**
      * Create a form for a note.
      *
      * Also handle the Request object.
@@ -120,10 +120,10 @@ class NoteController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\Form\FormInterface
      */
-    private function handleNoteForm(Note $note, Request $request)
+    private function handleNoteForm(Note $note, Request $request, bool $isAdminNoteType)
     {
         $form = $this->createForm(
-            $this->isGranted('ROLE_ADMIN') ? 
+            $isAdminNoteType ?
                 AdminNoteType::class :
                 NoteType::class, 
             $note
