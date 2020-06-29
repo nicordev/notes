@@ -24,3 +24,10 @@
         {% endfor %}
     </section>
 {% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('/js/MarkdownParser/marked.js') }}"></script>
+    <script src="{{ asset('/js/MarkdownParser/MarkdownParser.js') }}"></script>
+    <script src="{{ asset('/js/note_index.js') }}"></script>
+{% endblock %}
+
