@@ -26,13 +26,14 @@ class HomeController extends AbstractController
             $note
         );
         $noteForm->handleRequest($request);
-        $notes = $noteRepository->findBy(['author' => null], ['id' => 'DESC']);
 
         if ($noteForm->isSubmitted() && $noteForm->isValid()) {
             $manager->persist($note);
             $manager->flush();
             $this->addFlash("success", "A note has been created.");
         }
+
+        $notes = $noteRepository->findBy(['author' => null], ['id' => 'DESC']);
 
         return $this->render('home/index.html.twig', [
             'noteForm' => $noteForm->createView(),
