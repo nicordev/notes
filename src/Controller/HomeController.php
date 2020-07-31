@@ -33,11 +33,18 @@ class HomeController extends AbstractController
             $this->addFlash("success", "A note has been created.");
         }
 
-        $notes = $noteRepository->findBy(['author' => null], ['id' => 'DESC']);
+        $anonymousNotes = $noteRepository->findBy(['author' => null], ['id' => 'DESC']);
+
+        $user = $this->getUser();
+
+        if ($this->isGranted('ROLE_USER', $user)) {
+            $userNotes = $noteRepository->findBy(['author' => $user], ['id' => 'DESC']);
+        }
 
         return $this->render('home/index.html.twig', [
             'noteForm' => $noteForm->createView(),
-            'notes' => $notes
+            'anonymousNotes' => $anonymousNotes,
+            'userNotes' => $userNotes ?? null
         ]);
     }
 }

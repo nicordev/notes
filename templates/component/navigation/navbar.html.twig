@@ -2,11 +2,12 @@
 <nav class="navbar">
     {% if app.user %}
         <span>{{ app.user.name }}</span>
+        <a class="btn btn-secondary" href="{{ path('home') }}">Home</a>
+        <a class="btn btn-secondary" href="{{ path('note_index') }}">Your notes</a>
         {% if is_granted('ROLE_ADMIN') %}
             <a class="btn btn-secondary" href="{{ path('admin_index', {'panel': 'note'}) }}">Note panel</a>
             <a class="btn btn-secondary" href="{{ path('admin_index', {'panel': 'member'}) }}">Member panel</a>
         {% endif %}
-        <a class="btn btn-secondary" href="{{ path('note_index') }}">Note list</a>
         <a class="btn btn-warning" href="{{ path('app_logout') }}">Logout</a>
     {% else %}
         <a class="btn btn-secondary" href="{{ path('app_login') }}">Login</a>
