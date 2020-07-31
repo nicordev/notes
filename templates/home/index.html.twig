@@ -3,18 +3,12 @@
 {% block title %}Notes{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset("/css/home.css") }}">
     <link rel="stylesheet" href="{{ asset("/css/note_form.css") }}">
     <link rel="stylesheet" href="{{ asset("/css/note_list.css") }}">
 {% endblock %}
 
 {% block content %}
-    <div class="summary">
-        <a class="btn btn-primary" href="{{ path("note_index") }}">List notes</a>
-    </div>
-    <div class="flash-note">
-        {% include 'component/note/note_form.html.twig' %}
-    </div>
+    {% include 'component/note/note_form.html.twig' %}
     {% if userNotes %}
         <section class="note-list border-light">
             {% for note in userNotes %}

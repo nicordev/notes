@@ -1,5 +1,10 @@
 
-<div class="note-form-wrapper">
+<div class="note-form-commands">
+    <button id="show-note-form-button" class="btn btn-success">Add a note</button>
+    <button id="close-note-form-button" class="btn btn-warning hidden">Close note form</button>
+</div>
+
+<div id="note-form" class="note-form-wrapper hidden">
     {{ form_start(noteForm) }}
     {% if noteForm.author is defined %}
         <div class="note-form-component">
@@ -18,3 +23,8 @@
     <button class="btn btn-success" type="submit">Ok</button>
     {{ form_end(noteForm) }}
 </div>
+
+{% block javascripts %}
+    <script src="{{ asset('/js/display.js') }}"></script>
+    <script src="{{ asset('/js/note_form.js') }}"></script>
+{% endblock %}
